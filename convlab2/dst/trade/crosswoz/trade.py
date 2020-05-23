@@ -280,7 +280,7 @@ class CrossWOZTRADE(TRADE, nn.Module):
             batch_size = len(data_dev['context_len'])
             _, gates, words, class_words = self.encode_and_decode(data_dev, False, slot_temp)
 
-            for bi in range(batch_size1):
+            for bi in range(batch_size):
                 if data_dev["ID"][bi] not in all_prediction.keys():
                     all_prediction[data_dev["ID"][bi]] = {}
                 all_prediction[data_dev["ID"][bi]][data_dev["turn_id"][bi]] = {

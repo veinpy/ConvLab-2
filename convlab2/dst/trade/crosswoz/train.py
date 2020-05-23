@@ -11,7 +11,7 @@ from convlab2.dst.trade.crosswoz.utils.config import *
 from convlab2.dst.trade.crosswoz.models.TRADE import *
 
 
-os.environ["CUDA_VISIBLE_DEVICES"] = args['cuda_dev']  # "1"
+# os.environ["CUDA_VISIBLE_DEVICES"] = args.get('cuda_dev',"1") if args.get('cuda_dev',"1") else "1"
 
 import ipdb
 '''
@@ -58,18 +58,16 @@ else:
 
 # specify model parameters
 args['decoder'] = 'TRADE'
-args['batch'] = 4
-args['drop'] = 0.2
-args['learn'] = 0.001
-args['load_embedding'] = 1
+args['batch'] = args.get("batch",4) if args.get("batch",4 ) else 4
+args['drop'] = args.get("drop",0.2) if args.get("drop",0.2) else 0.2
+args['learn'] = args.get("learn",0.001) if args.get("learn",0.001) else 0.001
+args['load_embedding'] = args.get("load_embedding", 1) if not isinstance(args.get("load_embedding", 1), type(None)) else 1
 
 # Configure models and load data
 avg_best, cnt, acc = 0.0, 0, 0.0
 download_data()
-ipdb.set_trace()
 train, dev, test, test_special, lang, SLOTS_LIST, gating_dict, max_word = prepare_data_seq_cn(True, args['task'],
                                                                                               False, batch_size=int(args['batch']))
-ipdb.set_trace()
 model = globals()[args['decoder']](
     hidden_size=int(args['hidden']), 
     lang=lang, 

@@ -4,6 +4,8 @@ import argparse
 from tqdm import tqdm
 import torch
 
+import ipdb
+
 PAD_token = 1
 SOS_token = 3
 EOS_token = 2
@@ -69,9 +71,17 @@ parser.add_argument("--strict_domain", action="store_true")
 parser.add_argument('-exceptd','--except_domain', help='', required=False, default="", type=str)
 parser.add_argument('-onlyd','--only_domain', help='', required=False, default="", type=str)
 
-parser.add_argument('-cuda','--cuda_dev',help='',required=False,default="1",type=str)
+# parser.add_argument('-cuda','--cuda_dev',help='',required=False,default="1",type=str)
+# CUDA Setting
+parser.add_argument("-card",'--gpu_card',type=int,required=False, default=[0,1], nargs='+', help='used gpu')
 
-args = vars(parser.parse_known_args(args=[])[0])
+
+# args = vars(parser.parse_known_args(args=[])[0])
+args = vars(parser.parse_args())
+
+os.environ["CUDA_VISIBLE_DEVICES"] = ','.join(str(x) for x in args["gpu_card"])
+
+
 if args["load_embedding"]:
     args["hidden"] = 100
 if args["fix_embedding"]:
