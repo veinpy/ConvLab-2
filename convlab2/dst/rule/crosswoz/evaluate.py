@@ -5,7 +5,7 @@ from pprint import pprint
 from convlab2.dst.rule.crosswoz.dst import RuleDST
 from convlab2.util.crosswoz.state import default_state
 from copy import deepcopy
-
+import ipdb
 
 def calculateJointState(predict_golden):
     res = []
@@ -39,6 +39,7 @@ def test_sys_state(data, goal_type):
         if goal_type and item['type']!=goal_type:
             continue
         ruleDST.init_session()
+        ipdb.set_trace()
         for i, turn in enumerate(item['messages']):
             if turn['role'] == 'sys':
                 usr_da = item['messages'][i - 1]['dialog_act']
@@ -61,7 +62,8 @@ def test_sys_state(data, goal_type):
 
 
 if __name__ == '__main__':
-    test_data_path = '../../../../data/crosswoz/test.json.zip'
+    # test_data_path = '../../../../data/crosswoz/test.json.zip'
+    test_data_path = "/Users/vein/Documents/github/ConvLab-2/data/crosswoz/test.json.zip"
     test_data = read_zipped_json(test_data_path, 'test.json')
     for goal_type in ['单领域', '独立多领域', '独立多领域+交通', '不独立多领域', '不独立多领域+交通', None]:
         print(goal_type)

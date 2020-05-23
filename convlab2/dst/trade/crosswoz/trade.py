@@ -20,6 +20,8 @@ from convlab2.dst.trade.trade import TRADE
 from convlab2.util.crosswoz.state import default_state
 import jieba
 
+import ipdb
+
 
 def sentseg(sent):
     sent = sent.replace('\t', ' ')
@@ -32,6 +34,7 @@ class CrossWOZTRADE(TRADE, nn.Module):
     def __init__(self, argpath=None, mode='cn'):
         super(TRADE, self).__init__()
 
+        ipdb.set_trace()
         if argpath is None:
             argpath = 'model/TRADE-multiwozdst/HDD100BSZ4DR0.2ACC-0.3228'
         args['path'] = argpath
@@ -277,7 +280,7 @@ class CrossWOZTRADE(TRADE, nn.Module):
             batch_size = len(data_dev['context_len'])
             _, gates, words, class_words = self.encode_and_decode(data_dev, False, slot_temp)
 
-            for bi in range(batch_size):
+            for bi in range(batch_size1):
                 if data_dev["ID"][bi] not in all_prediction.keys():
                     all_prediction[data_dev["ID"][bi]] = {}
                 all_prediction[data_dev["ID"][bi]][data_dev["turn_id"][bi]] = {

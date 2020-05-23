@@ -69,6 +69,7 @@ parser.add_argument("--strict_domain", action="store_true")
 parser.add_argument('-exceptd','--except_domain', help='', required=False, default="", type=str)
 parser.add_argument('-onlyd','--only_domain', help='', required=False, default="", type=str)
 
+parser.add_argument('-cuda','--cuda_dev',help='',required=False,default="1",type=str)
 
 args = vars(parser.parse_known_args(args=[])[0])
 if args["load_embedding"]:

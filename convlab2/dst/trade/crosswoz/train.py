@@ -1,6 +1,5 @@
 # specify cuda id
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
 from convlab2.dst.trade.crosswoz.utils.config import MODE
 from tqdm import tqdm
@@ -11,6 +10,10 @@ from convlab2.util.file_util import cached_path
 from convlab2.dst.trade.crosswoz.utils.config import *
 from convlab2.dst.trade.crosswoz.models.TRADE import *
 
+
+os.environ["CUDA_VISIBLE_DEVICES"] = args['cuda_dev']  # "1"
+
+import ipdb
 '''
 python train.py
 '''
@@ -63,9 +66,10 @@ args['load_embedding'] = 1
 # Configure models and load data
 avg_best, cnt, acc = 0.0, 0, 0.0
 download_data()
+ipdb.set_trace()
 train, dev, test, test_special, lang, SLOTS_LIST, gating_dict, max_word = prepare_data_seq_cn(True, args['task'],
                                                                                               False, batch_size=int(args['batch']))
-
+ipdb.set_trace()
 model = globals()[args['decoder']](
     hidden_size=int(args['hidden']), 
     lang=lang, 
